@@ -1,6 +1,4 @@
-# fly.toml — change `app` to whatever name you registered with `fly launch`
-app = "egg-catcher"
-primary_region = "bom"   # Mumbai — change to whatever's near you
+primary_region = "bom"
 
 [build]
 
