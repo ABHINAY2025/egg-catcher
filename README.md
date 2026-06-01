@@ -6,7 +6,7 @@ colorTo: red
 sdk: docker
 app_port: 8080
 pinned: false
-short_description: Pixel-art arcade with phone-as-controller and MongoDB leaderboard
+short_description: Pixel-art arcade — phone is the controller
 ---
 
 # egg-catcher
