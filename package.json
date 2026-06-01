@@ -1,0 +1,27 @@
+{
+  "name": "egg-catcher-game",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n vite,api -c blue,magenta \"npm:dev:vite\" \"npm:server\"",
+    "dev:vite": "vite",
+    "server": "node server/server.js",
+    "build": "vite build",
+    "start": "node server/server.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongodb": "^6.10.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "concurrently": "^9.0.1",
+    "vite": "^5.4.10"
+  }
+}

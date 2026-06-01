@@ -1,0 +1,28 @@
+# fly.toml — change `app` to whatever name you registered with `fly launch`
+app = "egg-catcher"
+primary_region = "bom"   # Mumbai — change to whatever's near you
+
+[build]
+
+[env]
+  NODE_ENV = "production"
+  MONGO_DB = "news"
+  MONGO_COLLECTION = "egg_catcher_scores"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+  [http_service.concurrency]
+    type = "requests"
+    hard_limit = 200
+    soft_limit = 150
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
