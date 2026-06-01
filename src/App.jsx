@@ -3,6 +3,7 @@ import UsernameGate from './UsernameGate.jsx';
 import Game from './Game.jsx';
 import MobileGame from './MobileGame.jsx';
 import Leaderboard from './Leaderboard.jsx';
+import { api } from './api.js';
 
 function detectMobile() {
   if (typeof window === 'undefined') return false;
@@ -37,12 +38,12 @@ export default function App() {
     let alive = true;
     (async () => {
       try {
-        const r1 = await fetch('/api/game/room', { method: 'POST' }).then((r) => r.json());
+        const r1 = await fetch(api('/api/game/room'), { method: 'POST' }).then((r) => r.json());
         if (!alive) return;
         setRoomId(r1.roomId);
         if (import.meta.env.PROD) return; // in prod, controller URL = window.location.origin
         try {
-          const r2 = await fetch('/api/game/local-ip').then((r) => r.json());
+          const r2 = await fetch(api('/api/game/local-ip')).then((r) => r.json());
           if (!alive) return;
           setLanIp(r2.ip);
           setIpCandidates(Array.isArray(r2.candidates) ? r2.candidates : []);

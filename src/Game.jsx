@@ -1,4 +1,5 @@
 import React from 'react';
+import { api } from './api.js';
 
 const GAME_W = 640;
 const GAME_H = 380;
@@ -15,7 +16,7 @@ const OMELET_TTL = 5500;
 
 function postState(roomId, payload) {
   if (!roomId) return;
-  fetch('/api/game/state', {
+  fetch(api('/api/game/state'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ roomId, ...payload }),
@@ -57,7 +58,7 @@ export default function Game({ username, onGameOver, roomId, lanIp, ipCandidates
   // SSE — receive controller events (left/right/start)
   React.useEffect(() => {
     if (!roomId) return;
-    const es = new EventSource(`/api/game/events/${roomId}`);
+    const es = new EventSource(api(`/api/game/events/${roomId}`));
     es.addEventListener('ready', (e) => {
       try { setPaired(!!JSON.parse(e.data).paired); } catch {}
     });
@@ -111,7 +112,7 @@ export default function Game({ username, onGameOver, roomId, lanIp, ipCandidates
     stateRef.current.running = false;
     setRunning(false);
     try {
-      const res = await fetch('/api/score', {
+      const res = await fetch(api('/api/score'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, score: finalScore }),

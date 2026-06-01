@@ -1,9 +1,10 @@
 import React from 'react';
+import { api } from './api.js';
 
 const ROUND_MS = 60_000;
 
 function send(roomId, action) {
-  fetch('/api/game/control', {
+  fetch(api('/api/game/control'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ roomId, action }),
@@ -28,7 +29,7 @@ export default function Controller() {
 
   React.useEffect(() => {
     if (!roomId) return;
-    const es = new EventSource(`/api/game/controller-events/${roomId}`);
+    const es = new EventSource(api(`/api/game/controller-events/${roomId}`));
     es.addEventListener('ready', (e) => {
       try { setPaired(JSON.parse(e.data).paired); } catch {}
     });

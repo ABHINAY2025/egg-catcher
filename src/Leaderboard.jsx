@@ -1,4 +1,5 @@
 import React from 'react';
+import { api } from './api.js';
 
 export default function Leaderboard({ username, lastResult, onPlayAgain, onChangeUser }) {
   const [data, setData] = React.useState(null);
@@ -9,7 +10,7 @@ export default function Leaderboard({ username, lastResult, onPlayAgain, onChang
     let alive = true;
     (async () => {
       try {
-        const r = await fetch(`/api/leaderboard?limit=25&username=${encodeURIComponent(username)}`)
+        const r = await fetch(api(`/api/leaderboard?limit=25&username=${encodeURIComponent(username)}`))
           .then((r) => r.json());
         if (!alive) return;
         if (!r.ok) throw new Error(r.error || 'failed');

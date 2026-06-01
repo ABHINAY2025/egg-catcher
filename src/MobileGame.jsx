@@ -1,4 +1,5 @@
 import React from 'react';
+import { api } from './api.js';
 
 const GAME_W = 640;
 const GAME_H = 380;
@@ -45,7 +46,7 @@ export default function MobileGame({ username, onGameOver }) {
     stateRef.current.running = false;
     setRunning(false);
     try {
-      const res = await fetch('/api/score', {
+      const res = await fetch(api('/api/score'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, score: finalScore }),
